@@ -1,49 +1,43 @@
-import streamlit as st
-
-st.set_page_config(page_title="성격으로 알아보는 강아지 유형", layout="centered")
-
-st.title("🐾 당신은 어떤 강아지와 닮았을까요?")
-st.write("7가지 밸런스 게임을 통해 당신의 성격을 알아보고, 닮은 강아지 품종을 알려드릴게요!")
-
-# 질문 목록
-questions = [
-    ("혼자 있는 게 편해요", "사람들과 어울리는 게 좋아요"),
-    ("계획적인 걸 좋아해요", "즉흥적인 걸 좋아해요"),
-    ("활발하고 에너지가 넘쳐요", "조용하고 차분한 편이에요"),
-    ("새로운 걸 시도하는 걸 좋아해요", "익숙한 걸 더 선호해요"),
-    ("감정보다 이성을 우선해요", "이성보다 감정을 우선해요"),
-    ("리더십 있는 스타일이에요", "서포트 역할이 편해요"),
-    ("책보다 운동이 좋아요", "운동보다 책이 좋아요")
-]
-
-# 점수 저장
-score = 0
-
-# 질문별 응답
-for idx, (opt1, opt2) in enumerate(questions):
-    choice = st.radio(f"Q{idx+1}.", [opt1, opt2], key=idx)
-    if choice == opt2:
-        score += 1  # 우측 선택지일수록 외향적 성향이라고 가정
-
-# 결과 계산
-if st.button("🐶 결과 보기"):
-    if score <= 2:
-        dog = "시바 이누"
-        desc = "조용하고 독립적인 성격을 가진 당신은 시바 이누와 닮았어요!"
-        img_url = "https://images.unsplash.com/photo-1601758123927-1961a6b0e1c3"
-    elif score <= 4:
-        dog = "푸들"
-        desc = "밝고 감성적인 당신! 푸들과 잘 어울려요!"
-        img_url = "https://images.unsplash.com/photo-1612531386535-d9f69a6fa5b5"
-    elif score <= 5:
-        dog = "골든 리트리버"
-        desc = "친절하고 에너지 넘치는 성격! 골든 리트리버와 꼭 닮았어요!"
-        img_url = "https://images.unsplash.com/photo-1583511655826-05700d52f4db"
+def get_dog_result(score):
+    if score <= 1:
+        return {
+            "dog": "🐕 진돗개",
+            "desc": "조용하고 단단한 당신은 진돗개 스타일! 한 번 정한 건 끝까지 밀고 나가는 충직한 성격이에요.",
+            "img": "https://images.unsplash.com/photo-1635086458566-c801e760c01d"
+        }
+    elif score == 2:
+        return {
+            "dog": "🐶 시바 이누",
+            "desc": "귀여운 외모 속 시크한 매력! 시바 이누처럼 자기 주관이 뚜렷하고 깔끔한 스타일이에요.",
+            "img": "https://images.unsplash.com/photo-1601758123927-1961a6b0e1c3"
+        }
+    elif score == 3:
+        return {
+            "dog": "🐩 푸들",
+            "desc": "감성적이고 똑똑한 당신은 푸들과 찰떡! 예술적인 기질과 사교성이 매력적이에요.",
+            "img": "https://images.unsplash.com/photo-1612531386535-d9f69a6fa5b5"
+        }
+    elif score == 4:
+        return {
+            "dog": "🦮 골든 리트리버",
+            "desc": "누구에게나 따뜻하고 다정한 당신! 골든 리트리버처럼 배려심 넘치는 천사 같은 성격이에요.",
+            "img": "https://images.unsplash.com/photo-1583511655826-05700d52f4db"
+        }
+    elif score == 5:
+        return {
+            "dog": "🐶 말티즈",
+            "desc": "귀엽고 애교 넘치는 당신! 말티즈처럼 주변의 사랑을 듬뿍 받는 타입이에요.",
+            "img": "https://images.unsplash.com/photo-1593328124028-406a6ff0847c"
+        }
+    elif score == 6:
+        return {
+            "dog": "🐕 비숑 프리제",
+            "desc": "뽀글뽀글한 외모처럼 발랄하고 사교적인 당신! 비숑은 주변에 기분 좋은 에너지를 퍼뜨려요.",
+            "img": "https://images.unsplash.com/photo-1583337130417-3346a1a4a3c9"
+        }
     else:
-        dog = "보더 콜리"
-        desc = "똑똑하고 활동적인 당신은 보더 콜리와 닮았어요!"
-        img_url = "https://images.unsplash.com/photo-1596495577886-d920f1fb7238"
-
-    st.subheader(f"🐕 당신은 {dog}!")
-    st.write(desc)
-    st.image(img_url, use_column_width=True)
+        return {
+            "dog": "🐾 포메라니안",
+            "desc": "작지만 강한 에너지! 포메라니안처럼 자신감 넘치고 리더십 있는 스타일이에요.",
+            "img": "https://images.unsplash.com/photo-1619983081563-430f63627307"
+        }
